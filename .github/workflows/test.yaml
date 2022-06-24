@@ -12,7 +12,7 @@ jobs:
         with:
           slackUrl: https://localhost/
           text: Test message
-      - run: echo 'todo: check request & response'
+      - run: echo 'todo check request & response'
         shell: bash
     strategy:
       matrix:
@@ -45,7 +45,7 @@ jobs:
                 "todo": "real stuff here"
               ]
             ]
-      - run: echo 'todo: check request & response'
+      - run: echo 'todo check request & response'
         shell: bash
     strategy:
       matrix:
