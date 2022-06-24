@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2022 Paul Colby <git@colby.id.au>
+# SPDX-License-Identifier: MIT
+
+on: push
+
+jobs:
+  minimal:
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          slackUrl: https://localhost/
+          text: Test message
+      - run: echo 'todo: check request & response'
+        shell: bash
+    strategy:
+      matrix:
+        os:
+          - macos-10.15
+          - macos-11     # aka macos-latest
+          - macos-12
+          - ubuntu-18.04
+          - ubuntu-20.04 # aka ubuntu-latest
+          - ubuntu-22.04
+          - windows-2019
+          - windows-2022 # aka windows-latest
+      fail-fast: false
+
+  exhaustive:
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          slackUrl: 'todo: use a repo secret here'
+          text: Test message
+          username: Foo
+          icon: ':ghost:'
+          channel: '#general'
+          attachments: |
+            [
+              {
+                "foo": "${{ github.ref_name }}",
+                "todo": "real stuff here"
+              ]
+            ]
+      - run: echo 'todo: check request & response'
+        shell: bash
+    strategy:
+      matrix:
+        os:
+          - macos-10.15
+          - macos-11     # aka macos-latest
+          - macos-12
+          - ubuntu-18.04
+          - ubuntu-20.04 # aka ubuntu-latest
+          - ubuntu-22.04
+          - windows-2019
+          - windows-2022 # aka windows-latest
+      fail-fast: false
