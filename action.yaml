@@ -1,0 +1,52 @@
+# SPDX-FileCopyrightText: 2022 Paul Colby <git@colby.id.au>
+# SPDX-License-Identifier: MIT
+
+name: Post to Slack
+
+author: Paul Colby
+
+description: Post a message via a Slack Incoming WebHook
+
+inputs:
+  slackUrl:
+    description: Slack webhook URL
+    required: true
+  text:
+    description: Text of the message to post to Slack
+    required: true
+  username:
+    description: Name to post from
+    required: false
+  icon:
+    description: 'Slack emoji :shortcode: or icon URL for the post'
+    required: false
+  channel:
+    description: '#channel or @username to post the message to'
+    required: false
+  attachments:
+    description: List of attachments in JSON, serialised to a string
+    required: false
+
+outputs:
+  request:
+    description: JSON request payload that was POSTed to Slack
+    value: 'to do: build this in steps'
+  response:
+    description: Content included in Slack's reponse
+    value: 'to do: fetch this in steps'
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        set -o errexit -o noclobber -o nounset -o pipefail
+        # todo: Build the JSON payload.
+        # Note, we give the URL to curl as a config file on stdin to avoid portentially
+        # exposing the sensitive URL to other processes on the host.
+        echo curl --request POST --data 'todo' --config - << 'url = "${{ inputs.slackUrl }}"'
+        # todo: set output values.
+      shell: bash
+
+branding:
+  color: blue
+  icon: message-square
