@@ -53,7 +53,7 @@ jobs:
                 "todo": "real stuff here"
               ]
             ]
-          id: post
+        id: post
       - name: Validate outputs
         run: 'echo "todo validate: $REQUEST;$RESPONSE"'
         shell: bash
