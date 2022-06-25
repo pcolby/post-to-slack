@@ -10,10 +10,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./
         with:
-          slackUrl: https://localhost/
+          url: https://localhost/
           text: Test message
-      - run: echo 'todo check request & response'
+        id: post
+      - run: echo "todo validate: $REQUEST;$RESPONSE"
         shell: bash
+        env:
+          REQUEST:  ${{ steps.post.outputs.request  }}
+          RESPONSE: ${{ steps.post.outputs.response }}
     strategy:
       matrix:
         os:
@@ -33,11 +37,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./
         with:
-          slackUrl: 'todo: use a repo secret here'
+          rrl: 'todo: use a repo secret here'
           text: Test message
-          username: Foo
-          icon: ':ghost:'
           channel: '#general'
+          username: Foo
+          icon_emoji: ':ghost:'
+          icon_url: 'http://some-url'
           attachments: |
             [
               {
@@ -45,8 +50,12 @@ jobs:
                 "todo": "real stuff here"
               ]
             ]
-      - run: echo 'todo check request & response'
+          id: post
+      - run: echo "todo validate: $REQUEST;$RESPONSE"
         shell: bash
+        env:
+          REQUEST:  ${{ steps.post.outputs.request  }}
+          RESPONSE: ${{ steps.post.outputs.response }}
     strategy:
       matrix:
         os:
