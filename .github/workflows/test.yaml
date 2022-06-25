@@ -16,7 +16,9 @@ jobs:
           dryRun: true
         id: post
       - name: Validate outputs
-        run: 'echo "todo validate: $REQUEST;$RESPONSE"'
+        run: |
+          [[ "$REQUEST" == '{"text":"Test message"}' ]]
+          [[ -z "$RESPONSE" ]] # Dry-run.
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
@@ -42,22 +44,25 @@ jobs:
         uses: ./
         with:
           url: ${{ secrets.TEST_EXAMPLE_URL }}
-          text: Test message
+          text: >-
+            Complex message with "quotes", 'quotes',
+            and {fancy} [symbols] ;)
           channel: '#general'
-          username: Foo
-          iconEmoji: ':ghost:'
-          iconUrl: 'http://some-url'
+          username: "Testy \"Tester\" Mc'Testface"
+          iconEmoji: ':gh"ost:'
+          iconUrl: 'https://example.com/example.png'
           attachments: |
             [
-              {
-                "foo": "${{ github.ref_name }}",
-                "todo": "real stuff here"
-              ]
+              { "test": 1 },
+              { "test": 2 }
             ]
           dryRun: true
         id: post
       - name: Validate outputs
-        run: 'echo "todo validate: $REQUEST;$RESPONSE"'
+        run: |
+          echo "todo validate: $REQUEST;$RESPONSE"
+          #[[ "$REQUEST" == '{"text":"Test message"}' ]]
+          [[ -z "$RESPONSE" ]] # Dry-run.
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
