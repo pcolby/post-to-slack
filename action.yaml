@@ -29,6 +29,10 @@ inputs:
   attachments:
     description: List of attachments in JSON, serialised to a string
     required: false
+  dryRun:
+    description: 'If true, do everything *but* post to Slack'
+    required: true
+    default: false
 
 outputs:
   request:
@@ -69,8 +73,10 @@ runs:
 
         # Note, we give the URL to curl as a config file on stdin to avoid any chance
         # of exposing the sensitive URL to other processes on the host.
-        echo curl --request POST --data "payload=$json" --config - <<< "url=$INPUT_URL"
+        [[ "$INPUT_DRY_RUN" -eq 'true' ]] || response=$(curl --request POST --data "payload=$json" --config - <<< "url=$INPUT_URL")
+        echo "Reponse: ${response:-(none)}"
         echo "::set-output name=request::$json"
+        echo "::set-output name=response::$json"
       shell: bash
       env:
         INPUT_URL: ${{         inputs.url         }}
@@ -80,6 +86,7 @@ runs:
         INPUT_ICON_URL: ${{    inputs.iconUrl     }}
         INPUT_USERNAME: ${{    inputs.username    }}
         INPUT_ATTACHMENTS: ${{ inputs.attachments }}
+        INPUT_DRY_RUN: ${{     inputs.dryRun      }}
       id: poster
 
 branding:

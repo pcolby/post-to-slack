@@ -11,8 +11,9 @@ jobs:
       - name: Run post-to-slack action
         uses: ./
         with:
-          url: https://localhost/
+          url: https://example.com/
           text: Test message
+          dryRun: true
         id: post
       - name: Validate outputs
         run: 'echo "todo validate: $REQUEST;$RESPONSE"'
@@ -53,6 +54,7 @@ jobs:
                 "todo": "real stuff here"
               ]
             ]
+          dryRun: true
         id: post
       - name: Validate outputs
         run: 'echo "todo validate: $REQUEST;$RESPONSE"'
