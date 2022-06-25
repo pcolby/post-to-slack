@@ -8,12 +8,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - name: Run post-to-slack action
+        uses: ./
         with:
           url: https://localhost/
           text: Test message
         id: post
-      - run: 'echo "todo validate: $REQUEST;$RESPONSE"'
+      - name: Validate outputs
+        run: 'echo "todo validate: $REQUEST;$RESPONSE"'
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
@@ -35,14 +37,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - name: Run post-to-slack action
+        uses: ./
         with:
-          rrl: 'todo: use a repo secret here'
+          url: 'todo: use a repo secret here'
           text: Test message
           channel: '#general'
           username: Foo
-          icon_emoji: ':ghost:'
-          icon_url: 'http://some-url'
+          iconEmoji: ':ghost:'
+          iconUrl: 'http://some-url'
           attachments: |
             [
               {
@@ -51,7 +54,8 @@ jobs:
               ]
             ]
           id: post
-      - run: 'echo "todo validate: $REQUEST;$RESPONSE"'
+      - name: Validate outputs
+        run: 'echo "todo validate: $REQUEST;$RESPONSE"'
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
