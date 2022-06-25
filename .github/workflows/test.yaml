@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: MIT
 
+name: Integration Tests
+
 on: push
 
 jobs:

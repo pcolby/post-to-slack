@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: 2022 Paul Colby <git@colby.id.au>
+# SPDX-License-Identifier: MIT
+
+name: Manual Test
+
+on:
+  workflow_dispatch:
+    inputs:
+    url:
+      description: Slack Incoming Webhook URL
+      required: true
+      type: string
+    text:
+      description: Text of the message to post to Slack
+      required: true
+      type: string
+    channel:
+      description: '#channel or @username to post to'
+      required: false
+      type: string
+    iconEmoji:
+      description: 'Slack emoji :shortcode: to post with'
+      required: false
+      type: string
+    iconUrl:
+      description: 'URL for an incon to post with'
+      required: false
+      type: string
+    username:
+      description: Name to post from
+      required: false
+      type: string
+    dryRun:
+      description: 'If true, do everything *but* post to Slack'
+      required: true
+      default: false
+      type: boolean
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run post-to-slack action
+        uses: ./
+        with:
+          url: ${{       github.event.inputs.url       }}
+          text: ${{      github.event.inputs.text      }}
+          channel: ${{   github.event.inputs.channel   }}
+          username: ${{  github.event.inputs.username  }}
+          iconEmoji: ${{ github.event.inputs.iconEmoji }}
+          iconUrl: ${{   github.event.inputs.iconUrl   }}
+          # attachments:
+          dryRun: ${{    github.event.inputs.dryRun    }}
