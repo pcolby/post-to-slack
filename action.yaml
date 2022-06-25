@@ -53,7 +53,9 @@ runs:
 
         # Build the JSON payload. Note, we use `printf` here to workaround a bug in Bash pre-5.1 that causes:
         # "backslashes quoting double quotes in here document bodies to not be removed when expanding the body".
-        json="$(jq --exit-status --sort-keys . <<--
+        # Note also, we use compact-output so that the `::set-output` call below won't truncate at the first
+        # new line character; but otherwise we could use pretty-printing here if we wanted to.
+        json="$(jq --compact-output --exit-status --sort-keys . <<--
         {
           ${channel:+$(    printf '%s' '"channel"'    ): $channel,}
           ${icon:+$(       printf '%s' '"icon_emoji"' ): $iconEmoji,}
