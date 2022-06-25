@@ -58,9 +58,9 @@ runs:
           ${channel:+$(    printf '%s' '"channel"'    ): $channel,}
           ${icon:+$(       printf '%s' '"icon_emoji"' ): $iconEmoji,}
           ${icon:+$(       printf '%s' '"icon_url"'   ): $iconUrl,}
-          ${username:+$(   printf '%s' '"username"'   ): $safeUsername,}
+          ${username:+$(   printf '%s' '"username"'   ): $username,}
           ${attachments:+$(printf '%s' '"attachments"'): $attachments,}
-          "text": $safeText
+          "text": $text
         }
         -
         )";
