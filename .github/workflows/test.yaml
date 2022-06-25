@@ -19,6 +19,7 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
+          set -o errexit -o noclobber -o nounset -o pipefail
           [[ "$REQUEST" == '{"text":"Test message"}' ]]
           [[ -z "$RESPONSE" ]] # Dry-run.
         shell: bash
@@ -62,6 +63,7 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
+          set -o errexit -o noclobber -o nounset -o pipefail
           [[ "$REQUEST" == "$expectedRequest" ]]
           [[ -z "$RESPONSE" ]] # Dry-run.
         shell: bash
