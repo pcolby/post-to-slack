@@ -41,7 +41,7 @@ jobs:
       - name: Run post-to-slack action
         uses: ./
         with:
-          url: 'todo: use a repo secret here'
+          url: ${{ secrets.TEST_EXAMPLE_URL }}
           text: Test message
           channel: '#general'
           username: Foo
