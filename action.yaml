@@ -8,20 +8,23 @@ author: Paul Colby
 description: Post a message via a Slack Incoming WebHook
 
 inputs:
-  slackUrl:
-    description: Slack webhook URL
+  url:
+    description: Slack Incoming Webhook URL
     required: true
   text:
     description: Text of the message to post to Slack
     required: true
+  channel:
+    description: '#channel or @username to post to'
+    required: false
+  iconEmoji:
+    description: 'Slack emoji :shortcode: to post with'
+    required: false
+  iconUrl:
+    description: 'URL for an incon to post with'
+    required: false
   username:
     description: Name to post from
-    required: false
-  icon:
-    description: 'Slack emoji :shortcode: or icon URL for the post'
-    required: false
-  channel:
-    description: '#channel or @username to post the message to'
     required: false
   attachments:
     description: List of attachments in JSON, serialised to a string
@@ -40,12 +43,38 @@ runs:
   steps:
     - run: |
         set -o errexit -o noclobber -o nounset -o pipefail
-        # todo: Build the JSON payload.
-        # Note, we give the URL to curl as a config file on stdin to avoid portentially
-        # exposing the sensitive URL to other processes on the host.
-        echo curl --request POST --data 'todo' --config - << 'url = "${{ inputs.slackUrl }}"'
-        # todo: set output values.
+
+        # Encode inputs as JSON strings, including surrounding quotes.
+        [[ -z "$INPUT_TEXT"       ]] || text=$(     jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_TEXT"      )
+        [[ -z "$INPUT_USERNAME"   ]] || username=$( jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_USERNAME"  )
+        [[ -z "$INPUT_ICON_EMOJI" ]] || iconEmoji=$(jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_EMOJI")
+        [[ -z "$INPUT_ICON_URL"   ]] || iconUrl=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_URL"  )
+        [[ -z "$INPUT_CHANNEL"    ]] || channel=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_CHANNEL"   )
+
+        # Build the JSON payload. Note, we use `printf` here to workaround a bug in Bash pre-5.1 that causes:
+        # "backslashes quoting double quotes in here document bodies to not be removed when expanding the body".
+        json="$(cat <<--
+        {
+          ${channel:+$(    printf '%s' '"channel"'    ): $channel,}
+          ${icon:+$(       printf '%s' '"icon_emoji"' ): $iconEmoji,}
+          ${icon:+$(       printf '%s' '"icon_url"'   ): $iconUrl,}
+          ${username:+$(   printf '%s' '"username"'   ): $safeUsername,}
+          ${attachments:+$(printf '%s' '"attachments"'): $attachments,}
+          "text": $safeText
+        }
+        -
+        )";
+        # Note, we give the URL to curl as a config file on stdin to avoid any chance
+        # of exposing the sensitive URL to other processes on the host.
+        echo curl --request POST --data "payload=$json" --config - << "url=$INPUT_URL"
       shell: bash
+        INPUT_URL:         ${{ inputs.url         }}
+        INPUT_TEXT:        ${{ inputs.text        }}
+        INPUT_CHANNEL:     ${{ inputs.channel     }}
+        INPUT_ICON_EMOJI:  ${{ inputs.iconEmoji   }}
+        INPUT_ICON_URL:    ${{ inputs.iconUrl     }}
+        INPUT_USERNAME:    ${{ inputs.username    }}
+        INPUT_ATTACHMENTS: ${{ inputs.attachments }}
 
 branding:
   color: blue
