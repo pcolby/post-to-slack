@@ -67,7 +67,7 @@ runs:
 
         # Note, we give the URL to curl as a config file on stdin to avoid any chance
         # of exposing the sensitive URL to other processes on the host.
-        echo curl --request POST --data "payload=$json" --config - << "url=$INPUT_URL"
+        echo curl --request POST --data "payload=$json" --config - <<< "url=$INPUT_URL"
         echo "::set-output name=request::$json"
       shell: bash
       env:
