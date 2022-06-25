@@ -23,7 +23,7 @@ on:
         required: false
         type: string
       iconUrl:
-        description: 'URL for an incon to post with'
+        description: 'URL for an icon to post with'
         required: false
         type: string
       username:

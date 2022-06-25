@@ -21,7 +21,7 @@ inputs:
     description: 'Slack emoji :shortcode: to post with'
     required: false
   iconUrl:
-    description: 'URL for an incon to post with'
+    description: 'URL for an icon to post with'
     required: false
   username:
     description: Name to post from
@@ -63,8 +63,8 @@ runs:
         json="$(jq --compact-output --exit-status --sort-keys . <<--
         {
           ${channel:+$(    printf '%s' '"channel"'    ): $channel,}
-          ${icon:+$(       printf '%s' '"icon_emoji"' ): $iconEmoji,}
-          ${icon:+$(       printf '%s' '"icon_url"'   ): $iconUrl,}
+          ${iconEmoji:+$(  printf '%s' '"icon_emoji"' ): $iconEmoji,}
+          ${iconUrl:+$(    printf '%s' '"icon_url"'   ): $iconUrl,}
           ${username:+$(   printf '%s' '"username"'   ): $username,}
           ${attachments:+$(printf '%s' '"attachments"'): $attachments,}
           "text": $text
