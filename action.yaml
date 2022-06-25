@@ -33,10 +33,10 @@ inputs:
 outputs:
   request:
     description: JSON request payload that was POSTed to Slack
-    value: 'to do: build this in steps'
+    value: ${{ steps.poster.outputs.request }}
   response:
     description: Content included in Slack's reponse
-    value: 'to do: fetch this in steps'
+    value: ${{ steps.poster.outputs.response }}
 
 runs:
   using: composite
@@ -64,9 +64,11 @@ runs:
         }
         -
         )";
+
         # Note, we give the URL to curl as a config file on stdin to avoid any chance
         # of exposing the sensitive URL to other processes on the host.
         echo curl --request POST --data "payload=$json" --config - << "url=$INPUT_URL"
+        echo "::set-output name=request::$json"
       shell: bash
         INPUT_URL:         ${{ inputs.url         }}
         INPUT_TEXT:        ${{ inputs.text        }}
@@ -75,6 +77,7 @@ runs:
         INPUT_ICON_URL:    ${{ inputs.iconUrl     }}
         INPUT_USERNAME:    ${{ inputs.username    }}
         INPUT_ATTACHMENTS: ${{ inputs.attachments }}
+      id: poster
 
 branding:
   color: blue
