@@ -60,13 +60,16 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
-          echo "todo validate: $REQUEST;$RESPONSE"
-          #[[ "$REQUEST" == '{"text":"Test message"}' ]]
+          [[ "$REQUEST" == "$expectedRequest" ]]
           [[ -z "$RESPONSE" ]] # Dry-run.
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
           RESPONSE: ${{ steps.post.outputs.response }}
+          expectedRequest: >-
+            {"attachments":[{"test":1},{"test":2}],"channel":"#general",
+            "text":"Complex message with \"quotes\", 'quotes', and {fancy} [symbols] ;)",
+            "username":"Testy \"Tester\" Mc'Testface"}
     strategy:
       matrix:
         os:
