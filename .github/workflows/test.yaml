@@ -13,10 +13,10 @@ jobs:
           url: https://localhost/
           text: Test message
         id: post
-      - run: echo "todo validate: $REQUEST;$RESPONSE"
+      - run: 'echo "todo validate: $REQUEST;$RESPONSE"'
         shell: bash
         env:
-          REQUEST:  ${{ steps.post.outputs.request  }}
+          REQUEST: ${{  steps.post.outputs.request  }}
           RESPONSE: ${{ steps.post.outputs.response }}
     strategy:
       matrix:
@@ -51,10 +51,10 @@ jobs:
               ]
             ]
           id: post
-      - run: echo "todo validate: $REQUEST;$RESPONSE"
+      - run: 'echo "todo validate: $REQUEST;$RESPONSE"'
         shell: bash
         env:
-          REQUEST:  ${{ steps.post.outputs.request  }}
+          REQUEST: ${{  steps.post.outputs.request  }}
           RESPONSE: ${{ steps.post.outputs.response }}
     strategy:
       matrix:

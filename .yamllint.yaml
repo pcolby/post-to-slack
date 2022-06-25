@@ -12,6 +12,10 @@ rules:
   document-start:
     present: false
 
+  # The world has moved on from 80-chars ;)
+  line-length:
+    max: 150
+
   # Don't treat the top-level 'on' property as a truthy value.
   truthy:
     check-keys: false

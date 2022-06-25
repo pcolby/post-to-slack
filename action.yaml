@@ -70,12 +70,13 @@ runs:
         echo curl --request POST --data "payload=$json" --config - << "url=$INPUT_URL"
         echo "::set-output name=request::$json"
       shell: bash
-        INPUT_URL:         ${{ inputs.url         }}
-        INPUT_TEXT:        ${{ inputs.text        }}
-        INPUT_CHANNEL:     ${{ inputs.channel     }}
-        INPUT_ICON_EMOJI:  ${{ inputs.iconEmoji   }}
-        INPUT_ICON_URL:    ${{ inputs.iconUrl     }}
-        INPUT_USERNAME:    ${{ inputs.username    }}
+      env:
+        INPUT_URL: ${{         inputs.url         }}
+        INPUT_TEXT: ${{        inputs.text        }}
+        INPUT_CHANNEL: ${{     inputs.channel     }}
+        INPUT_ICON_EMOJI: ${{  inputs.iconEmoji   }}
+        INPUT_ICON_URL: ${{    inputs.iconUrl     }}
+        INPUT_USERNAME: ${{    inputs.username    }}
         INPUT_ATTACHMENTS: ${{ inputs.attachments }}
       id: poster
 
