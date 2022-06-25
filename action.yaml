@@ -49,11 +49,12 @@ runs:
         set -o errexit -o noclobber -o nounset -o pipefail
 
         # Encode inputs as JSON strings, including surrounding quotes.
-        [[ -z "$INPUT_TEXT"       ]] || text=$(     jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_TEXT"      )
-        [[ -z "$INPUT_USERNAME"   ]] || username=$( jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_USERNAME"  )
-        [[ -z "$INPUT_ICON_EMOJI" ]] || iconEmoji=$(jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_EMOJI")
-        [[ -z "$INPUT_ICON_URL"   ]] || iconUrl=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_URL"  )
-        [[ -z "$INPUT_CHANNEL"    ]] || channel=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_CHANNEL"   )
+        [[ -z "$INPUT_TEXT"        ]] || text=$(     jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_TEXT"      )
+        [[ -z "$INPUT_USERNAME"    ]] || username=$( jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_USERNAME"  )
+        [[ -z "$INPUT_ICON_EMOJI"  ]] || iconEmoji=$(jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_EMOJI")
+        [[ -z "$INPUT_ICON_URL"    ]] || iconUrl=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_ICON_URL"  )
+        [[ -z "$INPUT_CHANNEL"     ]] || channel=$(  jq --exit-status --raw-input --slurp 'rtrimstr("\n")' <<< "$INPUT_CHANNEL"   )
+        [[ -z "$INPUT_ATTACHMENTS" ]] || attachments="$INPUT_ATTACHMENTS"
 
         # Build the JSON payload. Note, we use `printf` here to workaround a bug in Bash pre-5.1 that causes:
         # "backslashes quoting double quotes in here document bodies to not be removed when expanding the body".
