@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: MIT
 
-name: Manual Test
+name: Manual Tests
 
 on:
   workflow_dispatch:
@@ -41,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Mask sensitive inputs
+        run: echo "::add-mask::$(jq -er .inputs.url "$GITHUB_EVENT_PATH")"
       - name: Run post-to-slack action
         uses: ./
         with:
