@@ -19,9 +19,10 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
+          # Note, the `|| false` is required for `errexit` on MacOS's (seriously old) Bash 3.2.
           set -o errexit -o noclobber -o nounset -o pipefail
-          [[ "$REQUEST" == '{"text":"Test message"}' ]]
-          [[ -z "$RESPONSE" ]] # Dry-run.
+          [[ "$REQUEST" == '{"text":"Test message"}' ]] || false
+          [[ -z "$RESPONSE" ]] || false # Dry-run.
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
@@ -63,9 +64,10 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
+          # Note, the `|| false` is required for `errexit` on MacOS's (seriously old) Bash 3.2.
           set -o errexit -o noclobber -o nounset -o pipefail
-          [[ "$REQUEST" == "$expectedRequest" ]]
-          [[ -z "$RESPONSE" ]] # Dry-run.
+          [[ "$REQUEST" == "$expectedRequest" ]] || false
+          [[ -z "$RESPONSE" ]] || false # Dry-run.
         shell: bash
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
