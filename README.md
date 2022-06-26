@@ -12,7 +12,7 @@ Simple GitHub Action for posting messages to Slack.
 ```yaml
 - uses: pcolby/post-to-slack@v1
   with:
-    url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+    url: ${{ secrets.SLACK_WEBHOOK_URL }}
     text: Hello world!
 ```
 
@@ -21,7 +21,7 @@ Simple GitHub Action for posting messages to Slack.
 ```yaml
 - uses: pcolby/post-to-slack@v1
   with:
-    url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+    url: ${{ secrets.SLACK_WEBHOOK_URL }}
     text: >-
       Complex message with "quotes", 'quotes',
       and {fancy} [symbols] ;)
@@ -36,7 +36,7 @@ Simple GitHub Action for posting messages to Slack.
 ```yaml
 - uses: pcolby/post-to-slack@v1
   with:
-    url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+    url: ${{ secrets.SLACK_WEBHOOK_URL }}
     text: >-
       Complex message with "quotes", 'quotes',
       and {fancy} [symbols] ;)
