@@ -53,7 +53,7 @@ jobs:
             and {fancy} [symbols] ;)
           channel: '#general'
           username: "Testy \"Tester\" Mc'Testface"
-          iconEmoji: ':gh"ost:'
+          iconEmoji: ':gh"o st:'
           iconUrl: 'https://example.com/example.png'
           attachments: |
             [
@@ -73,9 +73,9 @@ jobs:
           REQUEST: ${{  steps.post.outputs.request  }}
           RESPONSE: ${{ steps.post.outputs.response }}
           expectedRequest: >-
-            {"attachments":[{"test":1},{"test":2}],"channel":"#general","text":"Complex
-            message with \"quotes\", 'quotes', and {fancy} [symbols] ;)","username":"Testy
-            \"Tester\" Mc'Testface"}
+            {"attachments":[{"test":1},{"test":2}],"channel":"#general","icon_emoji":":gh\"o
+            st:","icon_url":"https://example.com/example.png","text":"Complex message with \"quotes\",
+            'quotes', and {fancy} [symbols] ;)","username":"Testy \"Tester\" Mc'Testface"}
     strategy:
       matrix:
         os:
