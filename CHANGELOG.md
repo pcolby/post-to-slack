@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] (2022-07-08)
+
 ### Added
 - Option to select the host environment when running manual tests.
 
@@ -23,3 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [unreleased]: https://github.com/pcolby/post-to-slack/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/pcolby/post-to-slack/releases/tag/v1.0.0
+[1.0.1]: https://github.com/pcolby/post-to-slack/releases/tag/v1.0.1
