@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Option to select the host environment when running manual tests.
+
 ### Changed
-- Disabled curl's progress meter for cleaner output
+- Disabled curl's progress meter for cleaner output.
 
 ## [1.0.0] (2022-06-26)
 
