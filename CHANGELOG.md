@@ -23,6 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for Slack messages with attachments.
 - Automated tests on all supported GitHub-hosted runners (`macos-*`, `ubuntu-*` and `windows-*`).
 
-[unreleased]: https://github.com/pcolby/post-to-slack/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/pcolby/post-to-slack/releases/tag/v1.0.0
+[unreleased]: https://github.com/pcolby/post-to-slack/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/pcolby/post-to-slack/releases/tag/v1.0.1
+[1.0.0]: https://github.com/pcolby/post-to-slack/releases/tag/v1.0.0
