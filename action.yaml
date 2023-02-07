@@ -58,7 +58,7 @@ runs:
 
         # Build the JSON payload. Note, we use `printf` here to workaround a bug in Bash pre-5.1 that causes:
         # "backslashes quoting double quotes in here document bodies to not be removed when expanding the body".
-        # Note also, we use compact-output so that the `::set-output` call below won't truncate at the first
+        # Note also, we use compact-output so that the `$GITHUB_OUTPUT` below won't truncate at the first
         # new line character; but otherwise we could use pretty-printing here if we wanted to.
         json="$(jq --compact-output --exit-status --sort-keys . <<--
         {
@@ -76,8 +76,8 @@ runs:
         # of exposing the sensitive URL to other processes on the host.
         [[ "$INPUT_DRY_RUN" == 'true' ]] || response=$(curl --no-progress-meter --request POST --data "payload=$json" --config - <<< "url=$INPUT_URL")
         echo "Reponse: ${response:-(none)}"
-        echo "::set-output name=request::$json"
-        echo "::set-output name=response::${response:-}"
+        echo "request=$json" >> "$GITHUB_OUTPUT"
+        echo "response=${response:-}" >> "$GITHUB_OUTPUT"
       shell: bash
       env:
         INPUT_URL: ${{         inputs.url         }}
