@@ -40,6 +40,42 @@ jobs:
           - windows-2022 # aka windows-latest
       fail-fast: false
 
+  new-line:
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run post-to-slack action
+        uses: ./
+        with:
+          url: https://example.com/
+          text: Message\nwith\nnew-line\ncharacters
+          dryRun: true
+        id: post
+      - name: Validate outputs
+        run: |
+          # Note, the `|| false` is required for `errexit` on MacOS's (seriously old) Bash 3.2.
+          set -o errexit -o noclobber -o nounset -o pipefail
+          [[ "$REQUEST" == "$expectedRequest" ]] || false
+          [[ -z "$RESPONSE" ]] || false # Dry-run.
+        shell: bash
+        env:
+          REQUEST: ${{  steps.post.outputs.request  }}
+          RESPONSE: ${{ steps.post.outputs.response }}
+          expectedRequest: >-
+            {"text":"Message\nwith\nnew-line\ncharacters"}
+    strategy:
+      matrix:
+        os:
+          - macos-10.15
+          - macos-11     # aka macos-latest
+          - macos-12
+          - ubuntu-18.04
+          - ubuntu-20.04 # aka ubuntu-latest
+          - ubuntu-22.04
+          - windows-2019
+          - windows-2022 # aka windows-latest
+      fail-fast: false
+
   extensive:
     runs-on: ${{ matrix.os }}
     steps:
