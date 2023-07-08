@@ -53,8 +53,6 @@ jobs:
         id: post
       - name: Validate outputs
         run: |
-          echo "<$REQUEST>"
-          echo "<$expectedRequest>"
           # Note, the `|| false` is required for `errexit` on MacOS's (seriously old) Bash 3.2.
           set -o errexit -o noclobber -o nounset -o pipefail
           [[ "$REQUEST" == "$expectedRequest" ]] || false
