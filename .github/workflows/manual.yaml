@@ -53,7 +53,7 @@ jobs:
   post:
     runs-on: ${{ github.event.inputs.host }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Mask sensitive inputs
         run: echo "::add-mask::$(jq -er .inputs.url "$GITHUB_EVENT_PATH")"
         shell: bash
