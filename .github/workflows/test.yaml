@@ -30,13 +30,15 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-11
-          - macos-12
           - macos-13
-          - ubuntu-20.04
+          - macos-14
+          - macos-15
           - ubuntu-22.04
-          - windows-2019
+          - ubuntu-22.04-arm
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
           - windows-2022
+          - windows-2025
       fail-fast: false
 
   new-line:
@@ -65,13 +67,15 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-11
-          - macos-12
           - macos-13
-          - ubuntu-20.04
+          - macos-14
+          - macos-15
           - ubuntu-22.04
-          - windows-2019
+          - ubuntu-22.04-arm
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
           - windows-2022
+          - windows-2025
       fail-fast: false
 
   extensive:
@@ -113,11 +117,13 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-11
-          - macos-12
           - macos-13
-          - ubuntu-20.04
+          - macos-14
+          - macos-15
           - ubuntu-22.04
-          - windows-2019
+          - ubuntu-22.04-arm
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
           - windows-2022
+          - windows-2025
       fail-fast: false
