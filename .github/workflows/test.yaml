@@ -27,7 +27,7 @@ jobs:
         env:
           REQUEST: ${{  steps.post.outputs.request  }}
           RESPONSE: ${{ steps.post.outputs.response }}
-    strategy:
+    strategy: &strategy
       matrix:
         os:
           - macos-14
@@ -65,20 +65,7 @@ jobs:
           RESPONSE: ${{ steps.post.outputs.response }}
           expectedRequest: >-
             {"text":"Message\nwith\nnew-line\ncharacters"}
-    strategy:
-      matrix:
-        os:
-          - macos-14
-          - macos-15
-          - macos-26
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - windows-11-arm
-          - windows-2022
-          - windows-2025
-      fail-fast: false
+    strategy: *strategy
 
   extensive:
     runs-on: ${{ matrix.os }}
@@ -116,17 +103,4 @@ jobs:
             {"attachments":[{"test":1},{"test":2}],"channel":"#general","icon_emoji":":gh\"o
             st:","icon_url":"https://example.com/example.png","text":"Complex message with \"quotes\",
             'quotes', and {fancy} [symbols] ;)","username":"Testy \"Tester\" Mc'Testface"}
-    strategy:
-      matrix:
-        os:
-          - macos-14
-          - macos-15
-          - macos-26
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - windows-11-arm
-          - windows-2022
-          - windows-2025
-      fail-fast: false
+    strategy: *strategy
