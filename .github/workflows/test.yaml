@@ -5,6 +5,8 @@ name: Automatic Tests
 
 on: push
 
+permissions: { }
+
 jobs:
   minimal:
     runs-on: ${{ matrix.os }}

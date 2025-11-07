@@ -52,6 +52,8 @@ on:
           - windows-2022
           - windows-2025
 
+permissions: { }
+
 jobs:
   post:
     runs-on: ${{ github.event.inputs.host }}
